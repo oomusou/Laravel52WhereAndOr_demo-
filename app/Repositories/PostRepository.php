@@ -8,7 +8,9 @@ class PostRepository
 {
     public function getUndeletedPosts()
     {
-        return Post::whereRaw('status = 0 or status = 1')
-            ->get();
+        return Post::where(function ($query) {
+            $query->where('status', 0)
+                ->orWhere('status', 1);
+        })->get();
     }
 }
